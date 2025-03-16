@@ -7,6 +7,8 @@ namespace Eshop
     {
         public static void Main(string[] args)
         {
+            string uniqueId = Guid.NewGuid().ToString();
+            Console.WriteLine(uniqueId);
             var builder = WebApplication.CreateBuilder(args);
 
             /* Entity Framework */

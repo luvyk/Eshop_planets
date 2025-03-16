@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*
+using Microsoft.AspNetCore.Mvc;
 using WebMVC.Attributes;
 using WebMVC.Database;
 using WebMVC.Entities;
@@ -42,14 +43,14 @@ namespace WebMVC.Controllers
                 ModelState.AddModelError("Brand", "Brand must start with a capital letter!"); //ruční nastavení chybového stavu
             }*/
 
-            if (!ModelState.IsValid)
+ /*           if (!ModelState.IsValid)
             {
                 /*TempData["Message"] = $"Car cannot be added."; //jednoduchá, ale uživatelsky nepříznivá validace
                 TempData["MessageType"] = "danger";
 
                 return RedirectToAction("List");*/
 
-                return View(carViewModel);
+  /*              return View(carViewModel);
             }
 
             Car car = new Car(
@@ -135,7 +136,7 @@ namespace WebMVC.Controllers
             _context.Cars.Remove(car);
             _context.SaveChanges();*/
 
-            if (car == null)
+ /*           if (car == null)
             {
                 TempData["Message"] = "Car with the specified ID was not found!"; //možnost 2 - nastavení obsahu na následující stránce
                 TempData["MessageType"] = "danger";
@@ -152,3 +153,4 @@ namespace WebMVC.Controllers
         }
     }
 }
+ */

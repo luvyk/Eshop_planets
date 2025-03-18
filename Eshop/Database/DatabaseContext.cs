@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Eshop.Entities;
+using Eshop.Entities.shop;
 
 namespace Eshop.Database
 {
@@ -7,6 +8,7 @@ namespace Eshop.Database
     {
         //public DbSet<Car> Cars { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Planeta> Planety { get; set; }
 
         public DatabaseContext(DbContextOptions options)
             : base(options)

@@ -1,4 +1,5 @@
 using Eshop.Database;
+using Eshop.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eshop

@@ -14,6 +14,21 @@ CREATE TABLE TbPlanety (
     cena INT not null
 );
 
+drop table if EXISTS TbObjednavky;
+
+CREATE TABLE TbObjednavky (
+    id INT PRIMARY KEY not null,
+    jmeno varchar(30) not null,
+    prijmeni Varchar(30) not null,
+    slunecni_soustava VARCHAR(30) not null,
+    planeta VARCHAR(30) not null,
+    mesto VARCHAR(30) not null,
+    ulice VARCHAR(30) not null,
+    cislo_domu VARCHAR(30) not null,
+    psc VARCHAR(10),
+    soustava_doruceni VARCHAR(30)
+);
+
 drop table if EXISTS TbKategorie;
 
 CREATE TABLE TbKategorie (
@@ -40,27 +55,59 @@ CREATE TABLE TbRecenze (
     FOREIGN KEY (id_planety) REFERENCES TbPlanety(id)
 );
 
+drop table if EXISTS TbUcet;
+
+CREATE TABLE TbUcet (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    uzivatelske_jmeno VARCHAR(35),
+    jmeno VARCHAR(30),
+    prijmeni VARCHAR(30),
+    slunecni_soustava VARCHAR(40),
+    planeta VARCHAR(30),
+    mesto VARCHAR(30),
+    cislo_domu VARCHAR(10),
+    psc VARCHAR(10),
+    soustava_doruceni VARCHAR(30)
+);
+
 drop table if EXISTS TbKosiky;
 
 CREATE TABLE TbKosiky (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_ucet NOT NULL,
-    id_objednavky INT
+    id_ucet INT NOT NULL,
+    id_objednavky INT,
+    FOREIGN KEY (id_ucet) REFERENCES TbUcet(id) ON DELETE CASCADE
+);
+
+drop table if EXISTS TbTempKosiky;
+
+CREATE TABLE TbTempKosiky (
+     uuid VARCHAR(40) PRIMARY KEY NOT NULL,
+     datum_vytvoreni DATETIME,
+     id_objednavky INT
 );
 
 drop table if EXISTS TbPlanetyVKosiku;
 
 CREATE TABLE TbPlanetyVKosiku (
-    id_planety INT,
-    id_kosiku NOT NULL,
-    id_objednavky
+    id_planety INT not null,
+    id_kosiku INT,
+    uuid_temp_kosiku varchar(40),
+    FOREIGN KEY (id_planety) REFERENCES TbPlanety(id),
+    FOREIGN KEY (id_kosiku) REFERENCES TbKosiky(id),
+    FOREIGN KEY (uuid_temp_kosiku) REFERENCES TbTempKosiky(uuid)
 );
 
 
 
 
-
 drop table TbPlanetyKategorie;
+drop table TbPlanetyVKosiku;
 drop table TbRecenze;
 drop table TbKategorie;
 drop table TbPlanety;
+DROP TABLE TbKosiky;
+drop table TbTempKosiky;
+drop table TbUcet;
+
+INSERT INTO `TbPlanety` (`id`, `nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`) VALUES ('0', 'Pluto', 'Ano, toto je planeta', '2', '3333', '555', '0', '0', NULL, '1', '621');

@@ -1,3 +1,5 @@
+using Eshop.Database;
+using Eshop.Entities.shop;
 using Eshop.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,9 +10,11 @@ namespace Eshop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private DatabaseContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DatabaseContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
@@ -41,7 +45,14 @@ namespace Eshop.Controllers
                 string existingId = Request.Cookies["VisitorId"];
                 ViewBag.Message = "Vítejte zpìt! Vaše VisitorId je: " + existingId;
             }
-
+            /*
+            List<Planeta> test = new List<Planeta>();
+            test = _context.Planety.ToList();
+            foreach (Planeta planeta in test)
+            {
+                Console.WriteLine(planeta.Nazev);
+            }
+            */
 
             return View();
         }

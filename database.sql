@@ -6,7 +6,7 @@ CREATE TABLE TbPlanety (
     popis VARCHAR(900) not null,
     pocet_mesicu INT,
     prumer INT,
-    delka_dne DATETIME,
+    delka_dne TIME,
     flora_pritomna BOOLEAN,
     fauna_pritomna BOOLEAN,
     typ_planety VARCHAR(30),
@@ -67,7 +67,8 @@ CREATE TABLE TbUcet (
     mesto VARCHAR(30),
     cislo_domu VARCHAR(10),
     psc VARCHAR(10),
-    soustava_doruceni VARCHAR(30)
+    soustava_doruceni VARCHAR(30),
+    heslo VARCHAR(100)
 );
 
 drop table if EXISTS TbKosiky;
@@ -76,7 +77,8 @@ CREATE TABLE TbKosiky (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_ucet INT NOT NULL,
     id_objednavky INT,
-    FOREIGN KEY (id_ucet) REFERENCES TbUcet(id) ON DELETE CASCADE
+    FOREIGN KEY (id_ucet) REFERENCES TbUcet(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_objednavky) REFERENCES TbObjednavky(id) ON DELETE CASCADE
 );
 
 drop table if EXISTS TbTempKosiky;
@@ -84,7 +86,8 @@ drop table if EXISTS TbTempKosiky;
 CREATE TABLE TbTempKosiky (
      uuid VARCHAR(40) PRIMARY KEY NOT NULL,
      datum_vytvoreni DATETIME,
-     id_objednavky INT
+     id_objednavky INT,
+     FOREIGN KEY (id_objednavky) REFERENCES TbObjednavky(id) ON DELETE CASCADE
 );
 
 drop table if EXISTS TbPlanetyVKosiku;
@@ -109,5 +112,12 @@ drop table TbPlanety;
 DROP TABLE TbKosiky;
 drop table TbTempKosiky;
 drop table TbUcet;
+drop table TbObjednavky;
 
-INSERT INTO `TbPlanety` (`id`, `nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`) VALUES ('0', 'Pluto', 'Ano, toto je planeta', '2', '3333', '555', '0', '0', NULL, '1', '621');
+
+INSERT INTO `TbPlanety` 
+( `nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`)
+ VALUES 
+( 'Pluto', 'Ano, toto je planeta', '2', '3333', '19:46:00', '0', '0', NULL, '1', '621');
+INSERT INTO `TbPlanety` (`nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`) VALUES ('Mars', 'Rudá planeta.', '2', '3333', '17:22:29', '1', '0', 'Potenciálně obyvatelná', '1', '888');
+

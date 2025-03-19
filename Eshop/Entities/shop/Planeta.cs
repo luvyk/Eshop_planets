@@ -30,7 +30,7 @@ namespace Eshop.Entities.shop
         public int? PocetNaSklade { get; set; }
         [Column("cena")]
         public int Cena { get; set; }
-        public virtual List<Kategorie> Kategories { get; set; }
+        public virtual PlanetyKategorie PlanetyKat { get; set; }
         public virtual List<Recenze> Recenze { get; set; }
         public virtual List<Kosik> Kosik { get; set; }
 
@@ -47,7 +47,7 @@ namespace Eshop.Entities.shop
             TypPlanety = "";
             PocetNaSklade = 0;
             Cena = 0;
-            Kategories = new List<Kategorie>();
+            PlanetyKat = new PlanetyKategorie();
             Recenze = new List<Recenze>();
             Kosik = new List<Kosik>();
         }

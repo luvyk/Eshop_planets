@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eshop.Entities.shop
 {
-    [Table("account")]
+    [Table("TbTempKosiky")]
     public class TempKosik
     {
         [Key]
@@ -11,8 +11,10 @@ namespace Eshop.Entities.shop
         public string UUID { get; set; }
         [Column("datum_vytvoreni")]
         public DateTime? DateOfCreation { get; set; }
+        [ForeignKey("Objednavky")]
         [Column("id_objednavky")]
         public int? IdObjednavky { get; set; }
+        public virtual Objednavky Objednavky { get; set; }
 
         public TempKosik()
         {

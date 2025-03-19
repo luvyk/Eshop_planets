@@ -7,12 +7,13 @@ namespace Eshop.Entities.shop
     {
         [Column("id")]
         public int Id { get; set; }
-        [ForeignKey("id")]
+        [ForeignKey("Ucet")]
         [Column("id_ucet")]
         public int IdUctet { get; set; }
         [Column("id_objednavky")]
         public int? IdObjednavky { get; set; }
-        public virtual List<Planeta> Planeta { get; set; }
+        //public virtual List<Planeta> Planeta { get; set; }
+        public virtual Ucet Ucet { get; set; }
 
 
         public Kosik()
@@ -20,7 +21,7 @@ namespace Eshop.Entities.shop
             Id = 0;
             IdUctet = 0;
             IdObjednavky = 0;
-            Planeta = new List<Planeta>();
+            //Planeta = new List<Planeta>();
         }
     }
 }

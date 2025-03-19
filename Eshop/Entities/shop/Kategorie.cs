@@ -11,13 +11,13 @@ namespace Eshop.Entities.shop
         public int Id { get; set; }
         [Column("nazev")]
         public string Nazev { get; set; }
-        public virtual List<Planeta> Planeta { get; set; }
+        public virtual PlanetyKategorie PlanetaKat { get; set; }
 
         public Kategorie()
         {
             Id = 0;
             Nazev = "";
-            Planeta = new List<Planeta>();
+            PlanetaKat = new PlanetyKategorie();
         }
     }
 }

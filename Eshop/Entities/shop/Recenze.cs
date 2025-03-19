@@ -13,9 +13,9 @@ namespace Eshop.Entities.shop
         public string? TextRecenze { get; set; }
         [Column("hodnoceni")]
         public int Hodnoceni { get; set; }
-        [ForeignKey("id")]
+        [ForeignKey("Planeta")]
         [Column("id_planety")]
-        public int IdPlanety { get; set; }
+        public  int IdPlanety { get; set; }
         public virtual Planeta Planeta { get; set; }
 
         public Recenze()

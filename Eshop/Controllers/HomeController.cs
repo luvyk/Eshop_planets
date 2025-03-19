@@ -45,16 +45,18 @@ namespace Eshop.Controllers
                 string existingId = Request.Cookies["VisitorId"];
                 ViewBag.Message = "Vítejte zpìt! Vaše VisitorId je: " + existingId;
             }
-            /*
-            List<Planeta> test = new List<Planeta>();
-            test = _context.Planety.ToList();
-            foreach (Planeta planeta in test)
+
+            List<Planeta> planety = _context.Planety.Where(s =>s.PocetNaSklade > 0).ToList();
+            
+            //List<Planeta> test = new List<Planeta>();
+            //test = _context.Planety.ToList();
+            foreach (Planeta planeta in planety)
             {
                 Console.WriteLine(planeta.Nazev);
             }
-            */
+            
 
-            return View();
+            return View(planety);
         }
 
         public IActionResult Privacy()

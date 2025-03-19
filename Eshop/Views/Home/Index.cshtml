@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Eshop.Entities.shop;
+
 
 
 <section style="background: #f4f4f4; display: flex; justify-content: center;">
@@ -20,21 +22,27 @@
                     <button class="btn btn-primary">Filter 2</button>
                     <button class="btn btn-primary">Filter 3</button>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <div class="card text-center">
-                            <a href="#" class="text-decoration-none">
-                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Product Image" style="max-width: 100%; height: auto;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product 1</h5>
-                                    <p class="card-text">$10.00</p>
-                                </div>
-                            </a>
-                            <button class="btn btn-success">
-                                <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" width="20" alt="Cart Icon"> Add to Cart
-                            </button>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+                            <div class="card text-center">
+                                <a href="#" class="text-decoration-none">
+                                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Product Image" style="max-width: 100%; height: auto;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Product 1</h5>
+                                        <p class="card-text">$10.00</p>
+                                    </div>
+                                </a>
+                                <button class="btn btn-success">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" width="20" alt="Cart Icon"> Add to Cart
+                                </button>
+                            </div>
                         </div>
                     </div>
+                }
+                    @*
                     <div class="col-md-4 mb-3">
                         <div class="card text-center">
                             <a href="#" class="text-decoration-none">
@@ -63,7 +71,9 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                    *@
+
+                
             </div>
         </div>
     </div>

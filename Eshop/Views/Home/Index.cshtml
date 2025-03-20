@@ -8,7 +8,7 @@
 <section style="background: #f4f4f4; display: flex; justify-content: center;">
     <div class="wrapper" style="display: flex; width: 100%; justify-content: center; align-items: flex-start;">
         <div class="container-custom d-flex" style="max-width: 1200px; width: 100%; display: flex; margin: 20px auto;">
-            <div class="sidebar p-3 bg-white" style="width: 20%; background: white; padding: 15px;">
+            <div class="sidebar p-3 bg-white" style="width: 20%; background: white; padding: 15px">
                 <h3>Categories</h3>
                 <ul class="list-unstyled">
                     <li><a href="#" class="text-decoration-none">Category 1</a></li>
@@ -16,31 +16,37 @@
                     <li><a href="#" class="text-decoration-none">Category 3</a></li>
                 </ul>
             </div>
-            <div class="main-content flex-grow-1 p-3 bg-white">
-                <div class="filters mb-3">
-                    <button class="btn btn-primary">Filter 1</button>
-                    <button class="btn btn-primary">Filter 2</button>
-                    <button class="btn btn-primary">Filter 3</button>
-                </div>
-                @for (int i = 0; i < Model.Count; i++)
-                {
-                    <div class="row">
 
-                        <div class="col-md-4 mb-3">
-                            <div class="card text-center">
-                                <a href="#" class="text-decoration-none">
-                                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Product Image" style="max-width: 100%; height: auto;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Product 1</h5>
-                                        <p class="card-text">$10.00</p>
-                                    </div>
-                                </a>
-                                <button class="btn btn-success">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" width="20" alt="Cart Icon"> Add to Cart
-                                </button>
+            <div class="filters mb-3" style="max-width:120px">
+                <button class="btn btn-primary">Filter 1</button>
+                <button class="btn btn-primary">Filter 2</button>
+                <button class="btn btn-primary">Filter 3</button>
+                <button class="btn btn-primary">Filter 3</button>
+                <button class="btn btn-primary">Filter 3</button>
+                <button class="btn btn-primary">Filter 3</button>
+                <button class="btn btn-primary">Filter 3</button>
+            </div>
+            <div class="main-content flex-grow-1 p-3 bg-white" style="display:flex; flex-wrap:wrap">
+                @foreach(Planeta produkt in Model)
+                {
+
+                    string path = $"/img/{produkt.Id}.png";
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card text-center">
+                                    <a href="#" class="text-decoration-none">
+                                        <img src="@path" class="card-img-top" alt="Product Image" style="max-width: 100%; height: auto;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@produkt.Nazev</h5>
+                                            <p class="card-text">@produkt.Cena</p>
+                                        </div>
+                                    </a>
+                                    <button asp-controller="" class="btn btn-success">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" width="20" alt="Cart Icon"> Add to Cart
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                   
                 }
                     @*
                     <div class="col-md-4 mb-3">

@@ -25,25 +25,31 @@ namespace Eshop.Controllers
             {
                 // Pokud neexistuje, vytvoøíme nový jedineèný identifikátor
                 string uniqueId = Guid.NewGuid().ToString();
-                Console.WriteLine(uniqueId);
+                //Console.WriteLine(uniqueId);
                 // Nastavíme cookie s možnostmi
                 CookieOptions options = new CookieOptions
                 {
                     Expires = DateTime.Now.AddYears(1), // Platnost na 1 rok
-                    HttpOnly = true, // Cookie není pøístupná skripty na stranì klienta
-                    Secure = true // Pouze pøes HTTPS
+                    HttpOnly = true // Cookie není pøístupná skripty na stranì klienta
+                    //Secure = true // Pouze pøes HTTPS
                 };
 
                 // Pøidáme cookie do odpovìdi
                 Response.Cookies.Append("VisitorId", uniqueId, options);
+                TempKosik kosik = new TempKosik();
+                _context.tempKosiks.Add(kosik);
+                _context.SaveChanges();
 
                 ViewBag.Message = "Nová cookie byla vytvoøena: " + uniqueId;
             }
             else
             {
+                TempKosik kosik = _context.tempKosiks.FirstOrDefault(s => s.UUID == Request.Cookies["VisitorId"]);
+                
+
                 // Pokud cookie existuje, naèteme její hodnotu
                 string existingId = Request.Cookies["VisitorId"];
-                ViewBag.Message = "Vítejte zpìt! Vaše VisitorId je: " + existingId;
+                //ViewBag.Message = "Vítejte zpìt! Vaše VisitorId je: " + existingId;
             }
 
             List<Planeta> planety = _context.Planety.Where(s =>s.PocetNaSklade > 0).ToList();
@@ -58,7 +64,6 @@ namespace Eshop.Controllers
 
             return View(planety);
         }
-
         public IActionResult Privacy()
         {
             return View();
@@ -69,5 +74,6 @@ namespace Eshop.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

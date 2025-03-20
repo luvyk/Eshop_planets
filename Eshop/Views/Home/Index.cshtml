@@ -41,9 +41,9 @@
                                             <p class="card-text">@produkt.Cena</p>
                                         </div>
                                     </a>
-                                    <button asp-controller="" class="btn btn-success">
+                            <a asp-controller="Kosik" asp-action="AddToCartAction" asp-route-id="@produkt.Id" class="btn btn-success">
                                         <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" width="20" alt="Cart Icon"> Add to Cart
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                    

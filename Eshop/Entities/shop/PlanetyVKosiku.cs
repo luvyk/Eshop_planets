@@ -7,7 +7,7 @@ namespace Eshop.Entities.shop
     public class PlanetyVKosiku
     {
         [Key]
-        [ForeignKey("Planeta")]
+        //[ForeignKey("Planeta")]
         [Column("id_planety")]
         public int IdPlanety { get; set; }
         [ForeignKey("Kosik")]
@@ -17,14 +17,27 @@ namespace Eshop.Entities.shop
         [Column("uuid_temp_kosiku")]
         public string? UUIDTempKosiku { get; set; }
         public virtual Planeta Planeta { get; set; }
-        public virtual Kosik Kosik { get; set; }
-        public virtual TempKosik TempKosik { get; set; }
+        public virtual Kosik? Kosik { get; set; }
+        public virtual TempKosik? TempKosik { get; set; }
 
         public PlanetyVKosiku()
         {
             IdPlanety = 0;
             IdKosiky = 0;
             UUIDTempKosiku = "";
+            Planeta = new Planeta();
+            Kosik = new Kosik();
+            TempKosik = new TempKosik();
+        }
+
+        public PlanetyVKosiku(TempKosik T)
+        {
+            IdPlanety = 0;
+            IdKosiky = 0;
+            UUIDTempKosiku = T.UUID;
+            Planeta = new Planeta();
+            Kosik = new Kosik();
+            TempKosik = T;
         }
     }
 }

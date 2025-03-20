@@ -11,16 +11,19 @@ namespace Eshop.Entities.shop
         public string UUID { get; set; }
         [Column("datum_vytvoreni")]
         public DateTime? DateOfCreation { get; set; }
-        [ForeignKey("Objednavky")]
+        //[ForeignKey("Objednavky")]
         [Column("id_objednavky")]
         public int? IdObjednavky { get; set; }
-        public virtual Objednavky Objednavky { get; set; }
+        //public virtual PlanetyVKosiku PlanetyVKosiku { get; set; }
+        //public virtual Objednavky? Objednavky { get; set; }
 
         public TempKosik()
         {
             UUID = "";
             DateOfCreation = DateTime.Now;
-            IdObjednavky = 0;
+            IdObjednavky = null;
+            //PlanetyVKosiku = new PlanetyVKosiku();
+            //Objednavky = new Objednavky();
         }
     }
 }

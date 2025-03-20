@@ -17,14 +17,14 @@ CREATE TABLE TbPlanety (
 drop table if EXISTS TbObjednavky;
 
 CREATE TABLE TbObjednavky (
-    id INT PRIMARY KEY not null,
-    jmeno varchar(30) not null,
-    prijmeni Varchar(30) not null,
-    slunecni_soustava VARCHAR(30) not null,
-    planeta VARCHAR(30) not null,
-    mesto VARCHAR(30) not null,
-    ulice VARCHAR(30) not null,
-    cislo_domu VARCHAR(30) not null,
+    id INT PRIMARY KEY Auto_Increment not null,
+    jmeno varchar(30) ,
+    prijmeni Varchar(30) ,
+    slunecni_soustava VARCHAR(30),
+    planeta VARCHAR(30) ,
+    mesto VARCHAR(30),
+    ulice VARCHAR(30) ,
+    cislo_domu VARCHAR(30),
     psc VARCHAR(10),
     soustava_doruceni VARCHAR(30)
 );

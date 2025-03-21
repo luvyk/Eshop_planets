@@ -37,11 +37,12 @@ namespace Eshop.Controllers
                 koiskTemp.UUID = uniqueId;
 
 
-               // _context.tempKosiks.Add(koiskKUlozeni);
+                // _context.tempKosiks.Add(koiskKUlozeni);
                 //_context.SaveChanges();
-
-
-                ViewBag.Message = "Nová cookie byla vytvořena: " + uniqueId;
+                //ViewBag.Message = "Nová cookie byla vytvořena: " + uniqueId;
+                 
+                _context.tempKosiks.Add(koiskTemp);
+                _context.SaveChanges();
             }
             else
             {
@@ -52,6 +53,8 @@ namespace Eshop.Controllers
                 // Pokud cookie existuje, načteme její hodnotu
                 string existingId = Request.Cookies["VisitorId"];
                 //ViewBag.Message = "Vítejte zpět! Vaše VisitorId je: " + existingId;
+
+
             }
 
             /*Zde doplnit Cookies*/
@@ -62,17 +65,21 @@ namespace Eshop.Controllers
             //koiskKUlozeni.PlanetyVKosiku.UUIDTempKosiku = koiskKUlozeni.UUID;
             //koiskKUlozeni.PlanetyVKosiku.Planeta = p;
             PlanetyVKosiku planetaVKosiku = new PlanetyVKosiku(koiskTemp);
-            planetaVKosiku.Planeta = p;
+            //planetaVKosiku.Planeta = p;
+            planetaVKosiku.IdPlanety = p.Id;
             //Objednavky o = new Objednavky();
 
             //_context.Objednavky.Add(o);
-            _context.tempKosiks.Add(koiskTemp);
-            _context.SaveChanges();
 
             _context.PlanetyVKosikus.Add(planetaVKosiku);
             _context.SaveChanges();
 
             //_context.
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Index()
+        {
             return View();
         }
     }

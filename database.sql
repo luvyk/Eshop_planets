@@ -93,12 +93,13 @@ CREATE TABLE TbTempKosiky (
 drop table if EXISTS TbPlanetyVKosiku;
 
 CREATE TABLE TbPlanetyVKosiku (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_planety INT not null,
     id_kosiku INT,
     uuid_temp_kosiku varchar(40),
-    FOREIGN KEY (id_planety) REFERENCES TbPlanety(id),
+    FOREIGN KEY (id_planety) REFERENCES TbPlanety(id)/* ,
     FOREIGN KEY (id_kosiku) REFERENCES TbKosiky(id),
-    FOREIGN KEY (uuid_temp_kosiku) REFERENCES TbTempKosiky(uuid)
+    FOREIGN KEY (uuid_temp_kosiku) REFERENCES TbTempKosiky(uuid) */
 );
 
 

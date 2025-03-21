@@ -12,8 +12,4 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.11" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Kosik\" />
-  </ItemGroup>
-
 </Project>

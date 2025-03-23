@@ -1,5 +1,6 @@
 ﻿using Eshop.Database;
 using Eshop.Entities.shop;
+using Eshop.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI;
 using System.Net;
@@ -127,6 +128,52 @@ namespace Eshop.Controllers
 
                 return View(objednanePlanety);
             }
+        }
+        public IActionResult Obednavka(string IdKos, string GUID)
+        {
+            ViewBag.GUID = GUID;
+            ViewBag.IdKos = IdKos;
+            return View();
+        }
+        public IActionResult DokonciObednavku(ObednavkaModel m)
+        {
+            Objednavky objednavky = new Objednavky();
+            objednavky.Id = m.Id;
+            objednavky.Jmeno = m.Jmeno;
+            objednavky.Prijmeni = m.Prijmeni;
+            objednavky.SlunecniSoustava = m.SlunecniSoustava;
+            objednavky.Planeta = m.Planeta;
+            objednavky.Mesto = m.Mesto;
+            objednavky.Ulice = m.Ulice;
+            objednavky.CisloDomu = m.CisloDomu;
+            objednavky.PSC = m.PSC;
+            objednavky.SoustavaDoruceni = m.SoustavaDoruceni;
+            objednavky.ZpusobPlatba = m.ZpusobPlatby;
+
+
+            _context.Add(objednavky);
+            _context.SaveChanges();
+
+            Objednavky newIdObednavka = _context.Objednavky.FirstOrDefault( o => o.Jmeno == m.Jmeno );
+            if (m.GUID != "")
+            {
+                TempKosik k = new TempKosik();
+
+                k.IdObjednavky = newIdObednavka.Id;
+                k.UUID = m.GUID;
+                _context.tempKosiks.Update(k);
+                _context.SaveChanges();
+            }
+            else
+            {
+                Kosik k = _context.Kosiky.FirstOrDefault(s => s.Id == Int32.Parse(m.IdKos));
+                k.IdObjednavky = newIdObednavka.Id;
+                _context.Kosiky.Update(k);
+                _context.SaveChanges();
+            }
+
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult DeleteOrder(int id, string IdKos, string GUID)

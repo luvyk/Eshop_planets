@@ -18,17 +18,20 @@
             </div>
 
             <div class="filters mb-3" style="max-width:120px">
-                <button class="btn btn-primary">Filter 1</button>
-                <button class="btn btn-primary">Filter 2</button>
-                <button class="btn btn-primary">Filter 3</button>
-                <button class="btn btn-primary">Filter 3</button>
-                <button class="btn btn-primary">Filter 3</button>
-                <button class="btn btn-primary">Filter 3</button>
+                @foreach (Kategorie kat in Model.Item2)
+                {
+                    <form asp-controller="Home" asp-action="Index">
+                        <input name="kategorie" type="hidden" value="@kat.Nazev" />
+                        <button type="submit" class="btn btn-primary">@kat.Nazev </button>
+                    </form>
+                    
+                }
+                
                 <button class="btn btn-primary">Filter 3</button>
             </div>
             <div class="main-content flex-grow-1 p-3 bg-white" style="display:flex; flex-wrap:wrap">
 
-                @foreach(Planeta produkt in Model)
+                @foreach (Planeta produkt in Model.Item1)
                 {
 
                     string path = $"/img/{produkt.Id}.png";

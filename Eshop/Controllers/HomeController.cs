@@ -18,11 +18,27 @@ namespace Eshop.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string kategorie)
         {
+            Console.WriteLine(kategorie);
+            List<Planeta> planety = new List<Planeta>();
+            if (kategorie == null)
+            {
+                planety = _context.Planety.Where(s => s.PocetNaSklade > 0).ToList();
+            }
+            else
+            {
+                Kategorie kat = _context.Kategories.FirstOrDefault(s => s.Nazev == kategorie);
+                List<PlanetyKategorie> planetyKategorie = _context.PlanetyKategories.Where(s => s.KategorieId == kat.Id).ToList();
 
-
-            List<Planeta> planety = _context.Planety.Where(s =>s.PocetNaSklade > 0).ToList();
+                List<Planeta> pp = new List<Planeta>();
+                foreach(PlanetyKategorie k in  planetyKategorie)
+                {
+                    pp = _context.Planety.Where(s => s.PocetNaSklade > 0).Where(c => c.Id == k.PlanetyId).ToList();
+                }
+                planety.AddRange(pp);
+            }
+            
             
             //List<Planeta> test = new List<Planeta>();
             //test = _context.Planety.ToList();
@@ -31,8 +47,11 @@ namespace Eshop.Controllers
                 Console.WriteLine(planeta.Nazev);
             }
             
+            List<Kategorie> list = _context.Kategories.ToList();
 
-            return View(planety);
+            var tuple = (planety, list);
+
+            return View(tuple);
         }
         public IActionResult Privacy()
         {

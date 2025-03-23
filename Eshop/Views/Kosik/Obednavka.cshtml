@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">Dokončete objednávku</div>
+        <div class="card-body">
+            @model Eshop.Models.ObednavkaModel
+
+            <form asp-controller="Kosik" asp-action="DokonciObednavku">
+                <div class="mb-3">
+                    @Html.HiddenFor(m => m.Id)
+                    <label asp-for="Jmeno" class="form-label">Jméno</label>
+                    <input asp-for="Jmeno" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Prijmeni" class="form-label">Příjmení</label>
+                    <input asp-for="Prijmeni" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="SlunecniSoustava" class="form-label">Sluneční soustava</label>
+                    <input asp-for="SlunecniSoustava" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Planeta" class="form-label">Planeta</label>
+                    <input asp-for="Planeta" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Mesto" class="form-label">Mesto</label>
+                    <input asp-for="Mesto" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Ulice" class="form-label">Ulice</label>
+                    <input asp-for="Ulice" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CisloDomu" class="form-label">Číslo domu</label>
+                    <input asp-for="CisloDomu" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="PSC" class="form-label">PSČ</label>
+                    <input asp-for="PSC" type="text" class="form-control" id="street" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="SoustavaDoruceni" class="form-label">Soustava doruceni</label>
+                    <input asp-for="SoustavaDoruceni" type="text" class="form-control" id="street" placeholder="">
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ZpusobPlatby" for="způsob platby" class="form-label">Způsob platby</label>
+                    <select asp-for="ZpusobPlatby" class="form-select" id="country">
+                        <option value="hotovost" selected>hotovost</option>
+                        <option value="dobirka">Na dobírku</option>
+                        <option value="naUcet">Převod na účet</option>
+                    </select>
+
+                    <input type="hidden" asp-for="GUID" name="GUID" value="@ViewBag.GUID" /> <input type="hidden" asp-for="IdKos" name="IdKos" value="@ViewBag.IdKos" />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

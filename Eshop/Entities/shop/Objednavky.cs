@@ -27,6 +27,8 @@ namespace Eshop.Entities.shop
         public string? PSC {  get; set; }
         [Column("soustava_doruceni")]
         public string? SoustavaDoruceni { get; set; }
+        [Column("zpusob_placeni")]
+        public string ZpusobPlatba { get; set; }
 
         public Objednavky()
         {
@@ -40,6 +42,7 @@ namespace Eshop.Entities.shop
             CisloDomu = "";
             PSC = "";
             SoustavaDoruceni = "";
+            ZpusobPlatba = "";
         }
     }
 }

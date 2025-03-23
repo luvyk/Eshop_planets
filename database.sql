@@ -26,7 +26,8 @@ CREATE TABLE TbObjednavky (
     ulice VARCHAR(30) ,
     cislo_domu VARCHAR(30),
     psc VARCHAR(10),
-    soustava_doruceni VARCHAR(30)
+    soustava_doruceni VARCHAR(30),
+    zpusob_placeni VARCHAR(30)
 );
 
 drop table if EXISTS TbKategorie;
@@ -123,3 +124,8 @@ INSERT INTO `TbPlanety`
 ( 'Pluto', 'Ano, toto je planeta', '2', '3333', '19:46:00', '0', '0', NULL, '1', '621');
 INSERT INTO `TbPlanety` (`nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`) VALUES ('Mars', 'Rudá planeta.', '2', '3333', '17:22:29', '1', '0', 'Potenciálně obyvatelná', '1', '888');
 
+INSERT INTO `TbKategorie` (`id`, `nazev`) VALUES ('0', 'PlazovyRezort');
+INSERT INTO `TbKategorie` (`id`, `nazev`) VALUES ('0', 'KVlastniTeraformaci');
+
+INSERT INTO `TbPlanetyKategorie` (`id_kategorie`, `id_planety`) VALUES ('1', '1');
+INSERT INTO `TbPlanetyKategorie` (`id_kategorie`, `id_planety`) VALUES ('2', '2');

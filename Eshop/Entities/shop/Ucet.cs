@@ -29,6 +29,8 @@ namespace Eshop.Entities.shop
         public string? SoustavaDoruceni { get; set; }
         [Column("heslo")]
         public string? Heslo {  get; set; }
+        [Column("role")]
+        public string? Role {  get; set; }
 
         public Ucet()
         {
@@ -43,6 +45,7 @@ namespace Eshop.Entities.shop
             PSC = "";
             SoustavaDoruceni = "";
             Heslo = "";
+            Role = "";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿/*
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eshop.Entities
 {
@@ -33,3 +34,4 @@ namespace Eshop.Entities
         }
     }
 }
+*/

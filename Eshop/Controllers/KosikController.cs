@@ -1,6 +1,8 @@
 ﻿using Eshop.Database;
 using Eshop.Entities.shop;
 using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI;
+using System.Net;
 
 namespace Eshop.Controllers
 {
@@ -80,7 +82,63 @@ namespace Eshop.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            int soucetCen = 0;
+
+            if (HttpContext.Session.GetString("User") !="")
+            {
+                string x = Request.Cookies["VisitorId"];
+                TempKosik tKos = _context.tempKosiks.FirstOrDefault(s => s.UUID == x);
+
+                List<PlanetyVKosiku> pVK = _context.PlanetyVKosikus.Where(s => s.UUIDTempKosiku == tKos.UUID).ToList();
+                List<Planeta> objednanePlanety = new List<Planeta>();
+                foreach(PlanetyVKosiku v in pVK)
+                {
+                    objednanePlanety.Add(_context.Planety.SingleOrDefault(s => s.Id == v.IdPlanety));
+                }
+                foreach(Planeta kSouctu in objednanePlanety)
+                {
+                    soucetCen += kSouctu.Cena;
+                }
+                ViewBag.Soucet = soucetCen;
+                ViewBag.GUID = tKos.UUID;
+                ViewBag.IdKos = 0;
+
+                return View(objednanePlanety);
+            } else
+            {
+                string x = HttpContext.Session.GetString("User");
+                Ucet u = _context.Ucty.SingleOrDefault(s => s.UzivatelskeJmeno == x);
+                Kosik Kos = _context.Kosiky.FirstOrDefault(s => s.IdUctet == u.Id);
+
+                List<PlanetyVKosiku> pVK = _context.PlanetyVKosikus.Where(s => s.IdKosiky == Kos.Id).ToList();
+                List<Planeta> objednanePlanety = new List<Planeta>();
+                foreach (PlanetyVKosiku v in pVK)
+                {
+                    objednanePlanety.Add(_context.Planety.SingleOrDefault(s => s.Id == v.IdPlanety));
+                }
+                foreach (Planeta kSouctu in objednanePlanety)
+                {
+                    soucetCen += kSouctu.Cena;
+                }
+
+                ViewBag.Soucet = soucetCen;
+                ViewBag.GUID = "";
+                ViewBag.IdKos = Kos.Id;
+
+                return View(objednanePlanety);
+            }
+        }
+
+        public IActionResult DeleteOrder(int id, string IdKos, string GUID)
+        {
+            Console.WriteLine(id);
+            Console.WriteLine(IdKos);
+            Console.WriteLine(GUID);
+            //Console.ReadLine();
+            PlanetyVKosiku naSmazani =  _context.PlanetyVKosikus.Where(s => s.IdPlanety == id).Where(q => q.IdKosiky == Int32.Parse(IdKos)).FirstOrDefault(w => w.UUIDTempKosiku == GUID);
+            _context.PlanetyVKosikus.Remove(naSmazani);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

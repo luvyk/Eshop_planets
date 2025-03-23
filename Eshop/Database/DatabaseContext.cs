@@ -7,7 +7,7 @@ namespace Eshop.Database
     public class DatabaseContext : DbContext
     {
         //public DbSet<Car> Cars { get; set; }
-        public DbSet<Account> Accounts { get; set; }
+        //public DbSet<Account> Accounts { get; set; }
         public DbSet<Planeta> Planety { get; set; }
         public DbSet<Kategorie> Kategories { get; set; }
         public DbSet<Kosik> Kosiky { get; set; }

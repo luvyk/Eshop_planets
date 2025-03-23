@@ -3,6 +3,7 @@ using Eshop.Database;
 using Eshop.Entities;
 using Eshop.Helpers;
 using Eshop.Models.Auth;
+using Eshop.Entities.shop;
 
 namespace Eshop.Controllers
 {
@@ -28,16 +29,19 @@ namespace Eshop.Controllers
                 return View(loginViewModel);
             }
 
-            Account? account = _context.Accounts.SingleOrDefault(a => a.Username == loginViewModel.Username);
-            if (account == null || account.Password != SHA256Helper.HashPassword(loginViewModel.Password))
+            Ucet? account = _context.Ucty.SingleOrDefault(a => a.UzivatelskeJmeno == loginViewModel.Username);
+            if (account == null || account.Heslo != SHA256Helper.HashPassword(loginViewModel.Password))
             {
                 TempData["Message"] = "Wrong username or password!";
                 TempData["MessageType"] = "danger";
                 return View(loginViewModel);
             }
 
-            HttpContext.Session.SetString("User", account.Username);
+            HttpContext.Session.SetString("User", account.UzivatelskeJmeno);
             HttpContext.Session.SetString("Role", account.Role);
+
+
+            //_context.Kosiky
 
             return RedirectToAction("Index", "Home");
         }

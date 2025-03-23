@@ -68,7 +68,8 @@ CREATE TABLE TbUcet (
     cislo_domu VARCHAR(10),
     psc VARCHAR(10),
     soustava_doruceni VARCHAR(30),
-    heslo VARCHAR(100)
+    heslo VARCHAR(100),
+    role VARCHAR(30)
 );
 
 drop table if EXISTS TbKosiky;

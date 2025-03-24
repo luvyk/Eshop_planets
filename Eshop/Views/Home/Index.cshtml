@@ -38,7 +38,7 @@
 
                             <div class="col-md-4 mb-3">
                                 <div class="card text-center">
-                                    <a href="#" class="text-decoration-none">
+                            <a asp-controller="Home" asp-action="Detail" asp-route-id="@produkt.Id" class="text-decoration-none">
                                         <img src="@path" class="card-img-top" alt="Product Image" style="max-width: 100%; height: auto;">
                                         <div class="card-body">
                                             <h5 class="card-title">@produkt.Nazev</h5>

@@ -129,3 +129,4 @@ INSERT INTO `TbKategorie` (`id`, `nazev`) VALUES ('0', 'KVlastniTeraformaci');
 
 INSERT INTO `TbPlanetyKategorie` (`id_kategorie`, `id_planety`) VALUES ('1', '1');
 INSERT INTO `TbPlanetyKategorie` (`id_kategorie`, `id_planety`) VALUES ('2', '2');
+INSERT INTO `TbUcet` (`id`, `uzivatelske_jmeno`, `jmeno`, `prijmeni`, `slunecni_soustava`, `planeta`, `mesto`, `cislo_domu`, `psc`, `soustava_doruceni`, `heslo`, `role`) VALUES ('0', 'pepa', 't', 't', 't', 't', 't', 't', 't', 't', NULL, 'admin');

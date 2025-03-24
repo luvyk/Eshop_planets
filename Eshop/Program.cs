@@ -1,6 +1,7 @@
 using Eshop.Database;
 using Eshop.Entities;
 using Microsoft.EntityFrameworkCore;
+using Eshop.Helpers;
 
 namespace Eshop
 {
@@ -8,8 +9,11 @@ namespace Eshop
     {
         public static void Main(string[] args)
         {
-            string uniqueId = Guid.NewGuid().ToString();
-            Console.WriteLine(uniqueId);
+            //string uniqueId = Guid.NewGuid().ToString();
+            //Console.WriteLine(uniqueId);
+            string test = "123456";
+            Console.WriteLine(SHA256Helper.HashPassword(test));
+
             var builder = WebApplication.CreateBuilder(args);
 
             /* Entity Framework */

@@ -64,5 +64,13 @@ namespace Eshop.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult Detail(int id)
+        {
+            List<Planeta> p = new List<Planeta> { _context.Planety.FirstOrDefault(s => s.Id == id) };
+            //Console.WriteLine(p.Nazev);
+            //Console.ReadLine();
+            return View(p);
+        }
+
     }
 }

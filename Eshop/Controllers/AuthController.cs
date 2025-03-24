@@ -41,7 +41,17 @@ namespace Eshop.Controllers
             HttpContext.Session.SetString("Role", account.Role);
 
 
-            //_context.Kosiky
+            Ucet u = _context.Ucty.FirstOrDefault(x => x.UzivatelskeJmeno == account.UzivatelskeJmeno);
+            if (u == null)
+            {
+                Ucet ucet = new Ucet();
+                ucet.UzivatelskeJmeno = account.UzivatelskeJmeno;
+                ucet.Role = account.Role;
+                ucet.Heslo = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
+
+                _context.Ucty.Add(ucet); 
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("Index", "Home");
         }

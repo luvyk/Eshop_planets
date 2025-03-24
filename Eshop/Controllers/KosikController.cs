@@ -3,11 +3,12 @@ using Eshop.Entities.shop;
 using Eshop.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace Eshop.Controllers
 {
-    public class KosikController : Controller
+    public class KosikController : SecuredController
     {
         private DatabaseContext _context;
 
@@ -18,64 +19,82 @@ namespace Eshop.Controllers
 
         public IActionResult AddToCartAction(int id)
         {
-            TempKosik koiskTemp = new TempKosik();
-            // Zkontrolujeme, zda uživatel má cookie
-            if (!Request.Cookies.ContainsKey("VisitorId"))
+            string uzJmeno = HttpContext.Session.GetString("User");
+            if (string.IsNullOrEmpty(uzJmeno) )
             {
-                Console.WriteLine("Nemá cookies");
-                // Pokud neexistuje, vytvoříme nový jedinečný identifikátor
-                string uniqueId = Guid.NewGuid().ToString();
-                //Console.WriteLine(uniqueId);
-                // Nastavíme cookie s možnostmi
-                CookieOptions options = new CookieOptions
+                TempKosik koiskTemp = new TempKosik();
+                // Zkontrolujeme, zda uživatel má cookie
+                if (!Request.Cookies.ContainsKey("VisitorId"))
                 {
-                    Expires = DateTime.Now.AddYears(1), // Platnost na 1 rok
-                    HttpOnly = true // Cookie není přístupná skripty na straně klienta
-                    //Secure = true // Pouze přes HTTPS
-                };
+                    Console.WriteLine("Nemá cookies");
+                    // Pokud neexistuje, vytvoříme nový jedinečný identifikátor
+                    string uniqueId = Guid.NewGuid().ToString();
+                    //Console.WriteLine(uniqueId);
+                    // Nastavíme cookie s možnostmi
+                    CookieOptions options = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddYears(1), // Platnost na 1 rok
+                        HttpOnly = true // Cookie není přístupná skripty na straně klienta
+                                        //Secure = true // Pouze přes HTTPS
+                    };
 
-                // Přidáme cookie do odpovědi
-                Response.Cookies.Append("VisitorId", uniqueId, options);
+                    // Přidáme cookie do odpovědi
+                    Response.Cookies.Append("VisitorId", uniqueId, options);
 
-                koiskTemp.UUID = uniqueId;
+                    koiskTemp.UUID = uniqueId;
 
 
-                // _context.tempKosiks.Add(koiskKUlozeni);
-                //_context.SaveChanges();
-                //ViewBag.Message = "Nová cookie byla vytvořena: " + uniqueId;
-                 
-                _context.tempKosiks.Add(koiskTemp);
+                    // _context.tempKosiks.Add(koiskKUlozeni);
+                    //_context.SaveChanges();
+                    //ViewBag.Message = "Nová cookie byla vytvořena: " + uniqueId;
+
+                    _context.tempKosiks.Add(koiskTemp);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("Ano, má cookies");
+                    koiskTemp = _context.tempKosiks.FirstOrDefault(s => s.UUID == Request.Cookies["VisitorId"]);
+
+
+                    // Pokud cookie existuje, načteme její hodnotu
+                    string existingId = Request.Cookies["VisitorId"];
+                    //ViewBag.Message = "Vítejte zpět! Vaše VisitorId je: " + existingId;
+
+
+                }
+
+                /*Zde doplnit Cookies*/
+                Planeta p = _context.Planety.SingleOrDefault(x => x.Id == id);
+
+                ////Console.ReadLine();
+                //koiskKUlozeni.PlanetyVKosiku = new PlanetyVKosiku(koiskKUlozeni);
+                //koiskKUlozeni.PlanetyVKosiku.UUIDTempKosiku = koiskKUlozeni.UUID;
+                //koiskKUlozeni.PlanetyVKosiku.Planeta = p;
+                PlanetyVKosiku planetaVKosiku = new PlanetyVKosiku(koiskTemp);
+                //planetaVKosiku.Planeta = p;
+                planetaVKosiku.IdPlanety = p.Id;
+                //Objednavky o = new Objednavky();
+
+                //_context.Objednavky.Add(o);
+
+                _context.PlanetyVKosikus.Add(planetaVKosiku);
                 _context.SaveChanges();
             }
             else
             {
-                Console.WriteLine("Ano, má cookies");
-                koiskTemp = _context.tempKosiks.FirstOrDefault(s => s.UUID == Request.Cookies["VisitorId"]);
+                Ucet u = _context.Ucty.FirstOrDefault(s => s.UzivatelskeJmeno == uzJmeno);
+                Kosik k = _context.Kosiky.FirstOrDefault(x => x.IdUctet == u.Id);
 
-
-                // Pokud cookie existuje, načteme její hodnotu
-                string existingId = Request.Cookies["VisitorId"];
-                //ViewBag.Message = "Vítejte zpět! Vaše VisitorId je: " + existingId;
-
+                if (k == null)
+                {
+                    Kosik kosik = new Kosik();
+                    kosik.IdUctet = u.Id;
+                }
 
             }
 
-            /*Zde doplnit Cookies*/
-            Planeta p = _context.Planety.SingleOrDefault(x => x.Id == id);
             
-            ////Console.ReadLine();
-            //koiskKUlozeni.PlanetyVKosiku = new PlanetyVKosiku(koiskKUlozeni);
-            //koiskKUlozeni.PlanetyVKosiku.UUIDTempKosiku = koiskKUlozeni.UUID;
-            //koiskKUlozeni.PlanetyVKosiku.Planeta = p;
-            PlanetyVKosiku planetaVKosiku = new PlanetyVKosiku(koiskTemp);
-            //planetaVKosiku.Planeta = p;
-            planetaVKosiku.IdPlanety = p.Id;
-            //Objednavky o = new Objednavky();
-
-            //_context.Objednavky.Add(o);
-
-            _context.PlanetyVKosikus.Add(planetaVKosiku);
-            _context.SaveChanges();
 
             //_context.
             return RedirectToAction("Index", "Home");

@@ -77,7 +77,7 @@ drop table if EXISTS TbKosiky;
 
 CREATE TABLE TbKosiky (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_ucet INT NOT NULL,
+    id_ucet INT NOT NULL DEFAULT 0,
     id_objednavky INT,
     FOREIGN KEY (id_ucet) REFERENCES TbUcet(id) ON DELETE CASCADE,
     FOREIGN KEY (id_objednavky) REFERENCES TbObjednavky(id) ON DELETE CASCADE

@@ -8,7 +8,7 @@ using System.Net;
 
 namespace Eshop.Controllers
 {
-    public class KosikController : SecuredController
+    public class KosikController : BaseController
     {
         private DatabaseContext _context;
 
@@ -60,8 +60,6 @@ namespace Eshop.Controllers
                     // Pokud cookie existuje, načteme její hodnotu
                     string existingId = Request.Cookies["VisitorId"];
                     //ViewBag.Message = "Vítejte zpět! Vaše VisitorId je: " + existingId;
-
-
                 }
 
                 /*Zde doplnit Cookies*/
@@ -84,14 +82,30 @@ namespace Eshop.Controllers
             else
             {
                 Ucet u = _context.Ucty.FirstOrDefault(s => s.UzivatelskeJmeno == uzJmeno);
-                Kosik k = _context.Kosiky.FirstOrDefault(x => x.IdUctet == u.Id);
+                
+                Kosik? kos = new Kosik();
+                try { kos = _context.Kosiky.FirstOrDefault(z => z.IdUctet == u.Id); }
+                catch { kos = null; }
 
-                if (k == null)
+
+                if (kos == null)
                 {
-                    Kosik kosik = new Kosik();
-                    kosik.IdUctet = u.Id;
-                }
+                    kos = new Kosik();
+                    kos.IdUctet = u.Id;
+                    kos.IdObjednavky = null;
+                    
 
+                    _context.Kosiky.Add(kos);
+                    _context.SaveChanges();
+                }
+                Planeta p = _context.Planety.SingleOrDefault(x => x.Id == id);
+                PlanetyVKosiku planetyVKosiku = new PlanetyVKosiku();
+
+                planetyVKosiku.IdPlanety = p.Id;
+                planetyVKosiku.IdKosiky = kos.Id;
+
+                _context.PlanetyVKosikus.Add(planetyVKosiku);
+                _context.SaveChanges();
             }
 
             

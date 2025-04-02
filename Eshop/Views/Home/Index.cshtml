@@ -26,7 +26,15 @@
                     </form>
                     
                 }
-                
+                <form asp-controller="Home" asp-action="Index">
+                    <input name="kategorie" type="hidden" value="odNejevnejsi" />
+                    <button type="submit" class="btn btn-primary">Nejlevnejsi </button>
+                </form>
+                <form asp-controller="Home" asp-action="Index">
+                    <input name="kategorie" type="hidden" value="nejdrazsi" />
+                    <button type="submit" class="btn btn-primary">Nejdražší</button>
+                </form>
+
                 <button class="btn btn-primary">Filter 3</button>
             </div>
             <div class="main-content flex-grow-1 p-3 bg-white" style="display:flex; flex-wrap:wrap">

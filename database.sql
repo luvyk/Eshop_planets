@@ -122,6 +122,7 @@ INSERT INTO `TbPlanety`
 ( `nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`)
  VALUES 
 ( 'Pluto', 'Ano, toto je planeta', '2', '3333', '19:46:00', '0', '0', NULL, '1', '621');
+INSERT INTO `TbPlanety` (`nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`) VALUES ('Země', '-', '2', '3333', '24:00:00', '1', '0', 'Obyvatelná', '1', '999999');
 INSERT INTO `TbPlanety` (`nazev`, `popis`, `pocet_mesicu`, `prumer`, `delka_dne`, `flora_pritomna`, `fauna_pritomna`, `typ_planety`, `pocet_na_sklade`, `cena`) VALUES ('Mars', 'Rudá planeta.', '2', '3333', '17:22:29', '1', '0', 'Potenciálně obyvatelná', '1', '888');
 
 INSERT INTO `TbKategorie` (`id`, `nazev`) VALUES ('0', 'PlazovyRezort');

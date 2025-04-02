@@ -26,7 +26,7 @@ namespace Eshop.Controllers
             {
                 planety = _context.Planety.Where(s => s.PocetNaSklade > 0).ToList();
             }
-            else
+            else if(kategorie != "nejdrazsi" && kategorie != "odNejevnejsi")
             {
                 Kategorie kat = _context.Kategories.FirstOrDefault(s => s.Nazev == kategorie);
                 List<PlanetyKategorie> planetyKategorie = _context.PlanetyKategories.Where(s => s.KategorieId == kat.Id).ToList();
@@ -48,7 +48,16 @@ namespace Eshop.Controllers
             }
             
             List<Kategorie> list = _context.Kategories.ToList();
-
+            /*
+            if (kategorie == "nejdrazsi")
+            {
+                planety = planety.OrderBy(s => s.Cena).ToList();
+            }
+            else if (kategorie == "odNejevnejsi")
+            {
+                planety = planety.OrderByDescending(s => s.Cena).ToList();
+            }
+            */
             var tuple = (planety, list);
 
             return View(tuple);
